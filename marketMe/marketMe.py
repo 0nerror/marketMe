@@ -1,11 +1,10 @@
-import smtplib, requests, bs4, random, sys, yaml, calendar, time
+import smtplib, requests, bs4, random, yaml, calendar, time
 from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 def goToMarket():
-    path = '/users/chrisgrant/marketMe/config.yml'
-    config = open(path, 'r')
+    config = open('config.yml', 'r')
     data = yaml.safe_load(config.read())
     with open("template.html", "r") as htmlFile:
         template=htmlFile.read()
@@ -13,16 +12,18 @@ def goToMarket():
     end_date = datetime.strptime(data["end_date"], "%m/%d/%Y")
     today = datetime.now()
     calendar_day = calendar.day_name[today.weekday()]
+    website = str(data["website"])
+    scrape_on = str(data["scrape_on"])
 
     if(today >= start_date and today <= end_date):
         if(calendar_day in data["send_on"]):
             sender_email = data["sender_email"]
             receiver_emails = data["recipient_list"]
             password = data["password"]
-            searchCode = ''.join(sys.argv[1:])
-            res = requests.get('https://www.ticketsmeters.com/search?q='+ searchCode)
+            searchCode = str(data["feature"])
+            res = requests.get(website + searchCode)
             showsSoup = bs4.BeautifulSoup(res.text, features="html.parser")
-            eventInfo = showsSoup.select('.event-info')
+            eventInfo = showsSoup.select("." + scrape_on)
 
             server = smtplib.SMTP("smtp.sendgrid.net", 587)
             server.ehlo()
