@@ -1,0 +1,14 @@
+sender_email: apikey
+password:  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
+from: marketing@testaccount.com
+start_date: 04/11/2019
+end_date: 05/11/2019
+
+send_on:
+  -Thursday
+
+recipient_list:
+  - oneerror@live.com
+  - damnatis.malus@gmail.com
+  - damnatis_malus@hotmail.com
+  - cgrant@infinityels.com
