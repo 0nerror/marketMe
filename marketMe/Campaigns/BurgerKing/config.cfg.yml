@@ -1,0 +1,12 @@
+sender_email: apikey
+password:  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
+from: marketing@testaccount.com
+start_date: 04/11/2019
+end_date: 05/11/2019
+website: https://www.bk.com/offers
+scrape_on: bk-offers
+
+send_on:
+  - Tuesday
+
+at_time: 14
